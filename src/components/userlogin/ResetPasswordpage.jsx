@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // import './ResetPasswordpage.css'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function ResetPasswordpage(props) {
 
     const [token, setToken] = useState('');
@@ -49,7 +52,7 @@ function ResetPasswordpage(props) {
 
         if (confirmPassword !== newPassword) {
 
-
+            toast('Password not match')
             setError("Password not match");
 
             setTimeout(() => {
@@ -65,6 +68,7 @@ function ResetPasswordpage(props) {
 
         if (confirmPassword == "" || newPassword == "" || token == "") {
 
+            toast('enter the required fields')
 
             setError("enter the required fields");
             setTimeout(() => {
@@ -79,6 +83,7 @@ function ResetPasswordpage(props) {
 
         if (newPassword.length < 8) {
 
+            toast('Enter minimum 8 characters for password')
 
             setError("Enter minimum 8 characters for password");
             setTimeout(() => {
@@ -117,6 +122,7 @@ function ResetPasswordpage(props) {
 
         console.log(fetchResponce);
         setResponce(fetchResponce.message);
+        toast(fetchResponce.message);
 
         setTimeout(() => {
             setResponce("");
@@ -127,11 +133,11 @@ function ResetPasswordpage(props) {
 
         setTimeout(() => {
 
-  navigate('/loading')
+//   navigate('/loading')
 
     setTimeout(() => {
     
-      navigate('/Login')
+      navigate('/')
 
     }, 3000); 
 
@@ -185,13 +191,14 @@ function ResetPasswordpage(props) {
                     </div>
                     <br />
                     <div className='text-danger'>
-                        {responce && <p>{responce} </p>}
-                        {error && <p> {error} </p>}
+                        {/* {responce && <p>{responce} </p>} */}
+                        {/* {error && <p> {error} </p>} */}
 
                     </div>
                 </div>
 
             </div>
+            <ToastContainer/>
         </div>
     );
 }

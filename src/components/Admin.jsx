@@ -5,7 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { userValid } from "../Features/UserSlice";
 import { emptyCart } from "../Features/CartSlice";
 import Notauth from "./error pages/Notauth";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function Admin() {
   const [inpName, setInpName] = useState("");
   const [inpPrice, setInpPrice] = useState("");
@@ -55,7 +56,19 @@ function Admin() {
       headers: { "content-type": "application/json" },
     });
 if(productFetch.status==200) {
-  alert("Product added successfully")
+  toast("Product added successfully")
+  setInpName("")
+  setInpPrice("")
+  setdescription("")
+  setimage("")
+  setcategory("")
+  setseller("")
+  setstock("")
+  setresponce("")
+}
+else{
+  toast("Error in adding product")
+
 }
     const responce = await productFetch.json();
     setresponce(responce);
@@ -196,7 +209,7 @@ id="image"
                   />
                 </div>
 
-                <div className="bg-yellow-400 text-center font-bold rounded-xl cursor-pointer py-1 px-1" >
+                <div className="bg-yellow-400  hover:bg-yellow-300 active:bg-yellow-700  text-center font-bold rounded-xl cursor-pointer py-1 px-1" >
                   <button type="submit"> Submit</button>
                 </div>
               </form>
@@ -209,6 +222,7 @@ id="image"
                 </Link>
               </div>
             </div>
+            <ToastContainer/>
           </main>
           <footer class="bg-white dark:bg-gray-900 mt-12">
             <hr />

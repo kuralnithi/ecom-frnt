@@ -6,6 +6,8 @@ import { userType } from "../../Features/UserSlice";
 import "react-loading-skeleton/dist/skeleton.css";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Login() {
   //FORM states
@@ -68,8 +70,8 @@ export default function Login() {
   const handleRegBtn = async (e) => {
     e.preventDefault();
     if (RegUserName == "" || RegEmailId == "" || RegPassword == "") {
+      toast("Please enter the required details");
       setRgStatus("Please enter the required details");
-
       setTimeout(() => {
         setRgStatus("");
       }, 3000);
@@ -121,6 +123,7 @@ export default function Login() {
 
     if (LoginEmailid == "" || LoginPassword == "") {
       setloginStatus("Please enter the required details");
+      toast("Please enter the required details");
       setTimeout(() => {
         setloginStatus("");
       }, 3000);
@@ -128,16 +131,19 @@ export default function Login() {
       return;
     }
 
-    const loginRes = await fetch("https://ecom-server-73yx.onrender.com/api/user/login", {
-      method: "post",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        emailid: LoginEmailid,
-        password: LoginPassword,
-      }),
-    });
+    const loginRes = await fetch(
+      "https://ecom-server-73yx.onrender.com/api/user/login",
+      {
+        method: "post",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          emailid: LoginEmailid,
+          password: LoginPassword,
+        }),
+      }
+    );
     console.log("LOG REG>>>", loginRes);
     const data = await loginRes.json();
     localStorage.setItem("ecom-token", data.token);
@@ -145,6 +151,7 @@ export default function Login() {
     setToken(localStorage.getItem("ecom-token"));
     console.log("token get from local and updated in setToken()", token);
     setloginserverStatus(data.message);
+    toast(data.message);
     setTimeout(() => {
       setloginserverStatus("");
     }, 3000);
@@ -154,6 +161,7 @@ export default function Login() {
   const handleChangePassword = async () => {
     try {
       if (LoginEmailid == "") {
+        toast("Please enter the E-mail id")
         setloginStatus("Please enter the E-mail id of forgetted password");
 
         setTimeout(() => {
@@ -180,6 +188,7 @@ export default function Login() {
 
       if (responce) {
         setresetMessage(responce.message);
+        toast(responce.message);
         console.log(responce.message);
       }
 
@@ -210,13 +219,16 @@ export default function Login() {
       setToken(localStorage.getItem("ecom-token"));
       console.log("token get from local and updated in setToken()", token);
 
-      const responce = await fetch("https://ecom-server-73yx.onrender.com/api/getuser", {
-        method: "get",
-        headers: {
-          "content-type": "application/json",
-          authorization: token,
-        },
-      });
+      const responce = await fetch(
+        "https://ecom-server-73yx.onrender.com/api/getuser",
+        {
+          method: "get",
+          headers: {
+            "content-type": "application/json",
+            authorization: token,
+          },
+        }
+      );
 
       const data = await responce.json();
 
@@ -261,6 +273,7 @@ export default function Login() {
   const handleAlreadyRegBtn = () => {
     setRegForm(false);
   };
+  const notify = () => toast("Wow so easy !");
 
   return (
     <div className=" px-2 ">
@@ -279,8 +292,8 @@ export default function Login() {
             alt=""
           />
         </div>
-        <div className="form  flex flex-col items-center  shadow-2xl  px-2 rounded-full  ">
-          <div className="form-heading font-bold  py-12 ">
+        <div className="form  flex flex-col items-center py-12 shadow-2xl  px-2 rounded-full  ">
+          <div className="form-heading font-bold  py-2 ">
             {regform ? (
               <h1 className="font-bold font-sans">SIGN UP</h1>
             ) : fgtUser ? (
@@ -353,7 +366,7 @@ export default function Login() {
                 Already registered ?
               </button>
             </div>
-            {<p>{regStatus}</p>}
+            {/* {<p>{regStatus}</p>} */}
           </div>
 
           <div hidden={regform} className="login-form">
@@ -404,8 +417,8 @@ export default function Login() {
                   Forget password ?{" "}
                 </a>
                 <button
-                    className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
-                    hidden={!fgtUser}
+                  className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+                  hidden={!fgtUser}
                   onClick={handleChangePassword}
                 >
                   {" "}
@@ -453,12 +466,16 @@ export default function Login() {
                   onError={() => alert("error google login")}
                 />
               </div>
-              {<p>{loginStatus}</p>}
-              {<p>{loginserverStatus}</p>}
+              {/* {<p>{loginStatus}</p>} */}
+              {/* {<p>{loginserverStatus}</p>} */}
             </div>
-            {resetMessage ? <div>{resetMessage}</div> : null}
+            {/* {resetMessage ? <div>{resetMessage}</div> : null} */}
           </div>
         </div>
+      </div>
+
+      <div>
+        <ToastContainer />
       </div>
 
       <footer class="bg-white dark:bg-gray-900 mt-12">
