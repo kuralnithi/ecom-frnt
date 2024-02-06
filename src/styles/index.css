@@ -1,0 +1,15 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.login-heading{
+
+    font-family: cursive;
+}
+
+.reset-heading {
+    font-family: cursive;
+
+
+
+}
