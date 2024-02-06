@@ -22,7 +22,7 @@ function ProductView() {
   }, []);
 
   const fetchSingleProducts = async () => {
-    const responce = await fetch(`http://localhost:5000/api/product/${itemId}`);
+    const responce = await fetch(`https://ecom-server-73yx.onrender.com/api/product/${itemId}`);
     const resproducts = await responce.json();
     await setFetchedProduct(resproducts.product);
     console.log(resproducts);

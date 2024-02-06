@@ -47,7 +47,7 @@ function Admin() {
       stock: stock,
     };
 
-    const productFetch = await fetch("http://localhost:5000/api/addproduct", {
+    const productFetch = await fetch("https://ecom-server-73yx.onrender.com/api/addproduct", {
       method: "POST",
 
       body: JSON.stringify(productObj),

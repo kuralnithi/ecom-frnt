@@ -87,7 +87,7 @@ export default function Login() {
 
     try {
       const regResponce = await fetch(
-        "http://localhost:5000/api/user/register",
+        "https://ecom-server-73yx.onrender.com/api/user/register",
         {
           method: "post",
           headers: {
@@ -128,7 +128,7 @@ export default function Login() {
       return;
     }
 
-    const loginRes = await fetch("http://localhost:5000/api/user/login", {
+    const loginRes = await fetch("https://ecom-server-73yx.onrender.com/api/user/login", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -164,7 +164,7 @@ export default function Login() {
       }
 
       const forgetFetch = await fetch(
-        "http://localhost:5000/api/resetpassword",
+        "https://ecom-server-73yx.onrender.com/api/resetpassword",
         {
           method: "post",
           headers: {
@@ -210,7 +210,7 @@ export default function Login() {
       setToken(localStorage.getItem("ecom-token"));
       console.log("token get from local and updated in setToken()", token);
 
-      const responce = await fetch("http://localhost:5000/api/getuser", {
+      const responce = await fetch("https://ecom-server-73yx.onrender.com/api/getuser", {
         method: "get",
         headers: {
           "content-type": "application/json",
@@ -425,7 +425,7 @@ export default function Login() {
                   size="small"
                   onSuccess={async (Credentialresponce) => {
                     const OauthUserFetch = await fetch(
-                      "http://localhost:5000/api/oauth",
+                      "https://ecom-server-73yx.onrender.com/api/oauth",
                       {
                         method: "POST",
                         headers: {

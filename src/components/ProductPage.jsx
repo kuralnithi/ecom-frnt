@@ -34,7 +34,7 @@ const [trigger,setTrigger] = useState('');
   }, [trigger]);
 
   const fetchProducts = async () => {
-    const responce = await fetch("http://localhost:5000/api/products");
+    const responce = await fetch("https://ecom-server-73yx.onrender.com/api/products");
     const resproducts = await responce.json();
     await dispatch(fetchData(resproducts.products));
   };

@@ -33,7 +33,7 @@ function Cart() {
   const receipt = "qwsaq1";
 
   const paymentHandler = async (e) => {
-    const responce = await fetch("http://localhost:5000/api/payorder", {
+    const responce = await fetch("https://ecom-server-73yx.onrender.com/api/payorder", {
       method: "POST",
       body: JSON.stringify({ amount, currency, receipt }),
       headers: { "content-type": "application/json" },
@@ -57,7 +57,7 @@ function Cart() {
           razorpay_signature: response.razorpay_signature,
         };
 
-        const payfetch = await fetch("http://localhost:5000/api/payvalid", {
+        const payfetch = await fetch("https://ecom-server-73yx.onrender.com/api/payvalid", {
           method: "POST",
           body: JSON.stringify(paymentResponce),
           headers: { "content-type": "application/json" },
