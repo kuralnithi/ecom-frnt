@@ -1,0 +1,20 @@
+[[redirects]]
+from = "/*"
+to = "index.html"
+status = 200
+
+
+
+[[headers]]
+  # Enable cross-origin resource sharing (CORS)
+  for = "/*"
+    [headers.values]
+      Access-Control-Allow-Origin = "*"
+      Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+      Access-Control-Allow-Headers = "Content-Type, Authorization"
+
+[[headers]]
+  # Set SameSite attribute to None for cookies
+  for = "/*"
+    [headers.values]
+      Set-Cookie = "SameSite=None; Secure"
